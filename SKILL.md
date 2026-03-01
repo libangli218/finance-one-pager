@@ -43,7 +43,24 @@ description: 基于 Tushare 数据生成上市公司结构化 One Pager（业务
 - 日期格式：`YYYYMMDD`；股票代码：`000001.SZ`、`600519.SH`、港股/美股见 Tushare 文档。
 - 完整 220+ 接口：见 [reference/README.md](reference/README.md) 与 `reference/接口文档/`。
 
-### 3. 数据获取流程（与 One Pager 配合）
+### 3. 通用数据脚本（推荐：不用每次写新脚本）
+
+在仓库或项目根目录执行，**只需传入股票代码**即可拉取 One Pager 所需数据并输出结构化摘要：
+
+```bash
+python scripts/fetch_one_pager_data.py 600519.SH
+python scripts/fetch_one_pager_data.py 000001.SZ
+```
+
+若克隆到 Cursor 项目 `.cursor/skills/finance-one-pager/` 下，则可用：
+
+```bash
+python .cursor/skills/finance-one-pager/scripts/fetch_one_pager_data.py 600519.SH
+```
+
+脚本会拉取：基本信息、近一年日线、财务指标、利润表，并打印成「数据摘要」，直接用于填写 One Pager 模板；业务/亮点/风险的定性描述再根据公司与行业补充即可。
+
+### 4. 数据获取流程（与 One Pager 配合）
 
 1. 解析用户输入：公司名、证券代码、市场（A/港/美）。
 2. 根据代码调用 Tushare：`stock_basic` → `daily`（近期）→ `fina_indicator`、`income`（最近 3–5 年或若干报告期）。
@@ -111,9 +128,7 @@ ONE-PAGER: [公司名称]（[代码]，[交易所]）
 
 ## 四、脚本与参考
 
-- **封装脚本**：`scripts/api_client.py`（Tushare 封装，支持从 `.env` 读 Token）。在项目根执行：
-  ```bash
-  python .cursor/skills/finance-one-pager/scripts/api_client.py
-  ```
-- **接口文档**：本 skill 下 [reference/README.md](reference/README.md)，完整路径：`.cursor/skills/finance-one-pager/reference/`。
+- **One Pager 数据（推荐）**：`scripts/fetch_one_pager_data.py <股票代码>` — 无需每次写脚本，直接拉数据并输出摘要。
+- **通用 API 封装**：`scripts/api_client.py`（Tushare 类封装，支持从 `.env` 读 Token）。
+- **接口文档**：本仓库下 [reference/README.md](reference/README.md)。
 - **Tushare 官网**：https://tushare.pro/document/2
