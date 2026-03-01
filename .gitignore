@@ -1,0 +1,20 @@
+# 不要提交 Token
+.env
+.env.local
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.so
+.venv/
+venv/
+ENV/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
